@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: MyString
+  time: MyString
+  data: MyString
+  rssi: MyString
+  signal: MyString
+
+two:
+  id: MyString
+  time: MyString
+  data: MyString
+  rssi: MyString
+  signal: MyString

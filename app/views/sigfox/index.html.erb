@@ -1,0 +1,47 @@
+<h1>Sigfox#index</h1>
+
+<table style="width:60%" align="center">
+	<thead>
+	    <tr>
+	        <th width="20%">Device id</th>
+	        <th width="20%">Time</th>
+	        <th width="40%">Data</th>
+	        <th width="10%">RSSI</th>
+	        <th width="10%">SNR</th>
+	    </tr>
+	</thead>
+
+	<tbody align="center">
+	    <% @devicetype.each do |devicetype| %>
+	    <tr>
+	        <td>
+				<%= devicetype.device_id %>
+	        </td>
+			<td>
+				<%= devicetype.time %>
+	        </td>
+	        <td>
+				<%= devicetype.data %>
+	        </td>
+	        <td>
+				<%= devicetype.rssi %>
+	        </td>
+	        <td>
+				<%= devicetype.signal %>
+	        </td>
+	    </tr>
+	    <% end %>
+	</tbody>
+</table>
+
+<p id="demo"></p>
+
+<script type="text/javascript">
+
+var myVar=setInterval(function(){myTimer()},2000);
+
+function myTimer() {
+    location.reload();
+}
+
+</script>
