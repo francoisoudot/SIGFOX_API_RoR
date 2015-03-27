@@ -1,6 +1,6 @@
 class SigfoxController < ApplicationController
   def index
-  	@devicetype=Devicetype.all
+  	@devicetype=Devicetype.last(20)
   end
 
   def devicetype

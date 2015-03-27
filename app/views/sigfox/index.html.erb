@@ -1,10 +1,11 @@
 <h1>Sigfox#index</h1>
 
-<table style="width:60%" align="center">
+<table style="width:90%" align="center">
 	<thead>
 	    <tr>
 	        <th width="20%">Device id</th>
-	        <th width="20%">Time</th>
+	        <th width="25%">Time SIGFOX</th>
+	        <th width="25%">Time DB</th>
 	        <th width="40%">Data</th>
 	        <th width="10%">RSSI</th>
 	        <th width="10%">SNR</th>
@@ -19,6 +20,9 @@
 	        </td>
 			<td>
 				<%= devicetype.time %>
+	        </td>
+	        <td>
+				<%= devicetype.created_at %>
 	        </td>
 	        <td>
 				<%= devicetype.data %>
