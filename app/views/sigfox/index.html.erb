@@ -19,7 +19,7 @@
 				<%= devicetype.device_id %>
 	        </td>
 			<td>
-				<%= Time.at(devicetype.time.to_i).to_datetime  %>
+				<%= DateTime.strptime(devicetype.time,'%s') %>
 	        </td>
 	        <td>
 				<%= devicetype.created_at %>
