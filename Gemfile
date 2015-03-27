@@ -9,7 +9,7 @@ gem 'sqlite3',        group: :development
 
 # Use pg as the DB for heroku
 gem 'pg',        group: :production
-
+gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0.rc1'
 
