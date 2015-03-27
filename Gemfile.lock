@@ -55,6 +55,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.5.1)
     multi_json (1.11.0)
+    pg (0.17.1)
     polyglot (0.3.5)
     pry (0.10.0)
       coderay (~> 1.1.0)
@@ -123,6 +124,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
+  pg
   pry
   rails (= 4.1.0.beta2)
   sass-rails (~> 4.0.0.rc1)
