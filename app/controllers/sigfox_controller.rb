@@ -19,7 +19,7 @@ class SigfoxController < ApplicationController
     if params['ack']=="true"
       /change the data to send back/
       render :json=>{
-        device_id => { "downlinkData" => "deadbeefcafebabe"}
+        device_id => { "downlinkData" => "deadbeefbabebabe"}
       }
     else
       render :json=>''
