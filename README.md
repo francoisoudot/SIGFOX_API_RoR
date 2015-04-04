@@ -129,50 +129,50 @@ First we will create the code in the controller. In sigfox_controller.rb add:
 Note you can change the last 20 to another value. A too high value will slow down your page.
 In the view in index.html.erb add the following code
 
-        <h1>Sigfox#index</h1>
+    <h1>Sigfox#index</h1>
 
-				<table style="width:90%" align="center">
-					<thead>
-					    <tr>
-					        <th width="20%">Device id</th>
-					        <th width="25%">Time SIGFOX</th>
-					        <th width="25%">Time DB</th>
-					        <th width="40%">Data</th>
-					        <th width="10%">RSSI</th>
-					        <th width="10%">SNR</th>
-					    </tr>
-					</thead>
-					<tbody align="center">
-					    <% @devicetype.each do |devicetype| %>
-					    <tr>
-					        <td>
-								<%= devicetype.device_id %>
-					        </td>
-							<td>
-								<%= devicetype.time %>
-					        </td>
-					        <td>
-								<%= devicetype.created_at %>
-					        </td>
-					        <td>
-								<%= devicetype.data %>
-					        </td>
-					        <td>
-								<%= devicetype.rssi %>
-					        </td>
-					        <td>
-								<%= devicetype.signal %>
-					        </td>
-					    </tr>
-					    <% end %>
-					</tbody>
-				</table>
-				<script type="text/javascript">
-				var myVar=setInterval(function(){myTimer()},2000);
-				function myTimer() {
-				    location.reload();
-				}
-				</script>
+		<table style="width:90%" align="center">
+			<thead>
+			    <tr>
+			        <th width="20%">Device id</th>
+			        <th width="25%">Time SIGFOX</th>
+			        <th width="25%">Time DB</th>
+			        <th width="40%">Data</th>
+			        <th width="10%">RSSI</th>
+			        <th width="10%">SNR</th>
+			    </tr>
+			</thead>
+			<tbody align="center">
+			    <% @devicetype.each do |devicetype| %>
+			    <tr>
+			        <td>
+						<%= devicetype.device_id %>
+			        </td>
+					<td>
+						<%= devicetype.time %>
+			        </td>
+			        <td>
+						<%= devicetype.created_at %>
+			        </td>
+			        <td>
+						<%= devicetype.data %>
+			        </td>
+			        <td>
+						<%= devicetype.rssi %>
+			        </td>
+			        <td>
+						<%= devicetype.signal %>
+			        </td>
+			    </tr>
+			    <% end %>
+			</tbody>
+		</table>
+		<script type="text/javascript">
+		var myVar=setInterval(function(){myTimer()},2000);
+		function myTimer() {
+		    location.reload();
+		}
+		</script>
 
 The page will automatically reload every 2s to display the new messages. You can change the timer to whatever value that makes sense for your application.
 Now in routes.rb, we will change the root of the app to our new view so add:
@@ -184,6 +184,51 @@ Congratulations, you just have to save, commit on git and push back to heroku yo
     $ git commit -a -m "commit with view"
     $ git push heroku master
 
+## 7. Downlink callback
+The SIGFOX network can handle bi directional communication between your backend and the devices. In order to maintain the battery life of the wireless devices, the downlink communication has to be initiated by the device. The steps are the following:
+1.	Device sends a message that requires an answer
+2.	SIGFOX backend requires an answer to your backend 
+3.	You backend answers to SIGFOX
+4.	SIGFOX base station sends the answer to the device
+The URL pushed will be similar but an acknowledgement value (true or false) will be added.
+First, change the URL to:
+
+    http://YOURURL/sigfox/devicetype?id={device}&time={time}&data={data}&rssi={rssi}&signal={signal}&ack={ack}
+
+Next in the sigfox controller, we will add an if loop in the devicetype function to either answer to the downlink request initiated by the device or we will just acknowlege the message sent by the SIGFOX API :
+
+    def devicetype
+    
+    device_id=params['id']
+
+      Devicetype.create(
+   	:device_id=>device_id,
+   	:time=>params['time'],
+   	:data=>params['data'],
+   	:rssi=>params['rssi'],
+   	:signal=>params['signal'])
+
+      /JSON answer to the DL/
+
+       if params['ack']=="true"
+          /change the data to send back/
+         render :json=>{
+           device_id => { "downlinkData" => "deadbeefbabebabe"}
+         }
+       else
+         render :json=>''
+       end
+
+     end
+
+Congratulations you know can send back messages from your backend to your devices!
+
+##Useful links
+You can check SIGFOX @ <http://sigfox.com/>
+
+You will find a very cool project of pet tracking – server side - using SIGFOX network @ <https://github.com/Ekito/hackerz-server>
+
+You can check the python code to control your @ <https://github.com/francoisoudot/SIGFOX_KAP_PYTHON>
 
 
 
