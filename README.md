@@ -70,7 +70,7 @@ Now in the controller you have to add the method to handle the HTTP requests fro
 				:data=>params['data'],
 				:rssi=>params['rssi'],
 				:signal=>params['signal'])
-		end
+    end
 
 Congratulations, your platform is ready to receive and store the messages pushed by SIGFOX.
 
@@ -199,7 +199,7 @@ Next in the sigfox controller, we will add an if loop in the devicetype function
 
     def devicetype
           
-          device_id=params['id']
+         device_id=params['id']
 
          Devicetype.create(
          	:device_id=>device_id,
